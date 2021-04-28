@@ -77,8 +77,9 @@ All of these methods will return a `200` on success or a `400` on fail. Examples
 This expects a `licence` and a `uuid` (a unique identifier for the machine activating the license, usually a MAC address) as a `POST` request with the body being `JSON`.
 
 ```
-curl --location --request POST 'http://127.0.0.1:3010/license/activate' \ --header 'Content-Type: application/json' \ 
---data-raw '{"licence": "some-licence-code", "uuid": "aa:bb:cc:dd:ff:00"}' 
+curl --location --request POST 'http://127.0.0.1:3010/license/activate' \ 
+	--header 'Content-Type: application/json' \ 
+	--data-raw '{"licence": "some-licence-code", "uuid": "aa:bb:cc:dd:ff:00"}' 
 ```
 
 On success this will return a 200 with the following response 
@@ -101,9 +102,9 @@ If the `uuid` has already been used to activate this license then a new activati
 Using the `activation_id` you can periodically call this project to verify the activation. For example:
 
 ```
-curl --location --request POST 'http://127.0.0.1:3007/license/verify' \ --header 'Content-Type: application/json' \ 
---data-raw '{"licence": "some-licence-code", "activation_id":  
-"056d928b-1f3b-4681-a2bb-39f1680a7019"}'
+curl --location --request POST 'http://127.0.0.1:3007/license/verify' \ 
+	--header 'Content-Type: application/json' \ 
+	--data-raw '{"licence": "some-licence-code", "activation_id": "056d928b-1f3b-4681-a2bb-39f1680a7019"}'
 ```
 
 On success this will return a 200 response with the following body 
@@ -121,8 +122,9 @@ On success this will return a 200 response with the following body
 Similarly using the `activation_id` you can deactivate an activation. For example:
 
 ```
-curl --location --request POST 'http://127.0.0.1:3007/license/deactivate' \ --header 'Content-Type: application/json' \ 
---data-raw '{"activation_id": "056d928b-1f3b-4681-a2bb-39f1680a7019"}' 
+curl --location --request POST 'http://127.0.0.1:3007/license/deactivate' \ 
+	--header 'Content-Type: application/json' \ 
+	--data-raw '{"activation_id": "056d928b-1f3b-4681-a2bb-39f1680a7019"}' 
 ```
 
 On success this will return a 200 response with the following body 
