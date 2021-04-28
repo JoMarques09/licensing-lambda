@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Paddle Licensing Application.
+
+Globals:
+  Function:
+    Runtime: nodejs10.x
+    Timeout: 30
+    MemorySize: 128
+    Environment:
+      Variables:
+        AWS_REGION: eu-west-2
+        TABLE_NAME_LICENSE: paddle_licenses
+        TABLE_NAME_ACTIVATIONS: paddle_license_activations
+
+Resources:
+
+  # Paddle Webhook
+  Webhook:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: webhook.handler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 10
+      Events:
+        Webhook:
+          Type: Api
+          Properties:
+            Path: /webhook
+            Method: Post
+
+  # License Activate
+  LicenseActivate:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: license.handler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 10
+      Events:
+        LicenseActivate:
+          Type: Api
+          Properties:
+            Path: /license/activate
+            Method: Post
+
+  # License Deactivate
+  LicenseDeactivate:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: license.handler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 10
+      Events:
+        LicenseDeactivate:
+          Type: Api
+          Properties:
+            Path: /license/deactivate
+            Method: Post
+
+  # License Verify
+  LicenseVerify:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: license.handler
+      Runtime: nodejs10.x
+      MemorySize: 128
+      Timeout: 10
+      Events:
+        LicenseVerify:
+          Type: Api
+          Properties:
+            Path: /license/verify
+            Method: Post
